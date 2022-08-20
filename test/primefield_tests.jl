@@ -1,5 +1,3 @@
-include("../src/primefield.jl")
-
 @testset "Field Element Ops" begin
     @testset "Addition" begin
         a = FieldElement(7, 13)
