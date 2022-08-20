@@ -1,5 +1,3 @@
-import Base: show, ==
-
 struct FieldElement
     n::Integer
     p::Integer
@@ -8,17 +6,19 @@ struct FieldElement
         (n >= p) || (n < 0) ? throw(DomainError("Num $n not in field")) : new(n,p)
 end
 
-function show(io::IO, z::FieldElement)
+function Base.show(io::IO, z::FieldElement)
     print(io, "FieldElement_$(z.p)($(z.n))")
 end
 
-function ==(x::FieldElement, y::FieldElement)
+function Base.:(==)(x::FieldElement, y::FieldElement)
     (x.n == y.n) && (x.p == y.p)
 end
 
-z = FieldElement(4, 31)
-a = FieldElement(4, 31)
-b = FieldElement(5, 31)
-print(z)
-z == a
-z == b
+function Base.:+(x::FieldElement, y::FieldElement)
+    if x.p != y.p
+        throw(DomainError("Can't add two numbs in different fields"))
+    else
+        n = mod(x.n + y.n, x.p)
+        return FieldElement(n, x.p)
+    end
+end
