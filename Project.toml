@@ -1,3 +1,8 @@
+name = "EccExplained"
+uuid = "3c38064b-887e-4e7c-8dbc-13e60365ed8c"
+authors = ["0xpantera <0xpantera@proton.me>"]
+version = "0.1.0"
+
 [deps]
 Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
 PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
