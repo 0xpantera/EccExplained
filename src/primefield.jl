@@ -16,9 +16,18 @@ end
 
 function Base.:+(x::FieldElement, y::FieldElement)
     if x.p != y.p
-        throw(DomainError("Can't add two numbs in different fields"))
+        throw(DomainError("Can't add two nums in different fields"))
     else
         n = mod(x.n + y.n, x.p)
-        return FieldElement(n, x.p)
+        FieldElement(n, x.p)
+    end
+end
+
+function Base.:-(x::FieldElement, y::FieldElement)
+    if x.p != y.p
+        throw(DomainError("Can't subtract two nums in different fields"))
+    else
+        n = mod(x.n - y.n, x.p)
+        FieldElement(n, x.p)
     end
 end
