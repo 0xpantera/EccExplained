@@ -9,4 +9,13 @@
         b = FieldElement(4, 31)
         @test a-b == FieldElement(25, 31)
     end
+    @testset "Multiplication" begin
+        a = FieldElement(24, 31)
+        b = FieldElement(19, 31)
+        @test a*b == FieldElement(22, 31)
+    end
+    @testset "Exponentiation" begin
+        a = FieldElement(17, 31)
+        @test a^3 == FieldElement(15, 31)
+    end
 end

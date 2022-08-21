@@ -31,3 +31,17 @@ function Base.:-(x::FieldElement, y::FieldElement)
         FieldElement(n, x.p)
     end
 end
+
+function Base.:*(x::FieldElement, y::FieldElement)
+    if x.p != y.p
+        throw(DomainError("Can't multiply two nums in different fields"))
+    else
+        n = mod(x.n*y.n, x.p)
+        FieldElement(n, x.p)
+    end
+end
+
+function Base.:^(x::FieldElement, y::Integer)
+    n = mod(x.n^y, x.p)
+    FieldElement(n, x.p)
+end
