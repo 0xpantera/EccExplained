@@ -1,4 +1,6 @@
-struct FieldElement
+abstract type FiniteField <: Number end
+
+struct FieldElement <: FiniteField
     n::Integer
     p::Integer
 
@@ -36,12 +38,35 @@ function Base.:*(x::FieldElement, y::FieldElement)
     if x.p != y.p
         throw(DomainError("Can't multiply two nums in different fields"))
     else
-        n = mod(x.n*y.n, x.p)
+        n = mod(x.n * y.n, x.p)
         FieldElement(n, x.p)
     end
 end
 
-function Base.:^(x::FieldElement, y::Integer)
-    n = mod(x.n^y, x.p)
+function Base.:*(x::Integer, y::FieldElement)
+    FieldElement(mod(x * y.n, y.p), y.p)
+end
+
+function Base.:^(x::FieldElement, k::Integer)
+    n = powermod(x.n, mod(k, (x.p - 1)), x.p)
     FieldElement(n, x.p)
+end
+
+function Base.inv(x::FieldElement)
+    n = powermod(x.n, mod(-1, (x.p - 1)), x.p)
+    FieldElement(n, x.p)
+end
+
+function Base.div(x::FieldElement, y::FieldElement)
+    x / y
+end
+
+function Base.:/(x::FieldElement, y::FieldElement)
+    if x.p != y.p
+        throw(DomainError("Can't divide two nums in different fields"))
+    else
+       n = mod(x.n * powermod(y.n, x.p - 2, x.p), x.p)
+        FieldElement(n, x.p)
+    end
+    
 end
