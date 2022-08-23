@@ -2,6 +2,6 @@ module EccExplained
 
 export FieldElement
 
-include("primefield.jl")
+include("finitefield.jl")
 
 end # module
